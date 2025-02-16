@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Provider } from 'react-redux';
 import Landing from './Landing'
 import Header from './Header';
+import Register from './Users/Register';
 import STORE from '../redux/store';
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
                 <Header />
                 <Routes>
                     <Route path="/" element={<Landing />} />
+                    <Route path="/register" element={<Register />} />
                 </Routes>
             </BrowserRouter>
         </Provider>
