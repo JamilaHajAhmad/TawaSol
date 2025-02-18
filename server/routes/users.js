@@ -1,5 +1,5 @@
 /*
-    This is the file of register route (API), which is used to register a new user.
+    This file includes the route for creating a new user.
     The route is defined using the Express.js framework.
     Follow these steps to create a new user:
     1. Get the user's information from the request body.
@@ -21,8 +21,6 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 /*
-    @route   POST api/users/register
-    @desc    Register a new user
     1. post method takes 2 parameters essentially, the api url and the callback function which takes request and 
     returns response
     2. Actually, there is another type of parameters this method can take, which are called **middlewares**
@@ -33,6 +31,11 @@ const config = require('config');
     5. So the check function will e processed before going to the callback function
 */
 
+/*
+    @route   POST api/users/register
+    @desc    Register a new user
+    @access  Public
+*/
 router.post('/register',
     check("name", "Please enter your name").notEmpty(),
     check("email", "Please enter a valid email").isEmail(),
@@ -84,5 +87,86 @@ router.post('/register',
     It returns a promise, so you can use .then() and .catch() to handle the result and so the original function
     should be async and await should be used to handle the promise.
 */
+
+
+/*
+    @route POST api/users/login
+    @desc Login user and get token
+    @access Public
+*/
+router.post('/login',
+    check("email", "Please enter a valid email").isEmail(),
+    check("password", "Your password should have at least 6 characters ").isLength({min: 6}),
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({errors: errors.array()});
+        }
+        const {email,password} = req.body;
+        try {
+            let user = await User.findOne({email});
+            if(!user) {
+                return res.status(400).json({errors: [{msg: "Invalid Credentials"}]});
+            }
+            const isMatch = await bcrypt.compare(password, user.password);
+            if(!isMatch) {
+                return res.status(400).json({errors: [{msg: "Invalid Credentials"}]});
+            }
+            const payload = {user: {id: user.id}};
+            jwt.sign(payload, config.get('jwtSecret'), {expiresIn: "5 days"}, (error, token) => {
+                if(error) {
+                    throw error;
+                }
+                res.json({token});
+            })
+        } catch(error) {
+            console.error(error.message);
+            res.status(500).send(error.message);
+        }
+});
+
+const auth = (req, res, next) => {
+    const token = req.header('x-auth-token');
+    if (!token) {
+        return res.status(401).json({ msg: 'No token, authorization denied' });
+    }
+    try {
+        jwt.verify(token, config.get('jwtSecret'), (error, decoded) => {
+            if (error) {
+                return res.status(401).json({ msg: 'Token is not valid, authorization denied' });
+            }
+            req.user = decoded.user;
+            next();
+        });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send(error.message);
+    }
+}
+
+/*
+    1. When you define a custom middleware function like `auth`, you should call `next()` to pass
+    control to the next middleware function or route handler which will process the request.
+    This is crucial for the middleware to work correctly in the Express.js request-response cycle.
+    If you don't call `next()`, the request will be left hanging and no further processing will occur.
+
+    2. select('-password') is used to exclude the password field from the user object that is returned.
+    This is a common practice to ensure that sensitive information is not exposed in the response.
+*/
+
+/*
+    @route GET api/users
+    @desc Get user by token
+    @access Private
+*/ 
+router.get('/', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+        res.json(user);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send(error.message);
+    }
+});
 
 module.exports = router;
