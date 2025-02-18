@@ -10,13 +10,11 @@ app.use(express.json()); // To use json as body parser
 // Connect to MongoDB
 connectdb();
 
-app.use('/api', require('./routes/posts'));
+app.use('/api/posts', require('./routes/posts'));
 
-app.use('/api', require('./routes/users'));
+app.use('/api/users', require('./routes/users'));
 
-app.use('/api', require('./routes/auth'));
-
-app.use('/api', require('./routes/profile'));
+app.use('/api/profiles', require('./routes/profile'));
 
 const PORT = process.env.PORT || 4001;
 
