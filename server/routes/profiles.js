@@ -74,7 +74,8 @@ router.get('/me', auth, async (req, res) => {
         The fields to include are specified by their names.
         The _id field is always included by default.
         We've used it to add a name field from the user collection to the profile object.
-    2. Every communication with the database requires try-catch blocks to handle errors.
+    2. Every communication with the database requires try-catch blocks to handle errors and 
+    await for asynchronous operations.
 */
 
 // GET /api/profiles - Get all profiles
@@ -135,6 +136,47 @@ router.post('/upload', auth, async (req, res) => {
             await profile.save();
             res.json(profile);
         });
+    }
+    catch(error) {
+        console.error(error.message);
+        res.status(500).send(error.message);
+    }
+});
+
+// PUT /api/profiles/experience - Add profile experience
+router.put('/experience',
+    auth,
+    check('title', 'Title is required').notEmpty(),
+    check('company', 'Company is required').notEmpty(),
+    check('from', 'From date is required and needs to be from the past')
+    .notEmpty()
+    .custom((value, {req}) => (req.body.to ? value < req.body.to : true)),
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({errors: errors.array()});
+        }
+        try {
+            const profile = await Profile.findOne({user: req.user.id});
+            profile.experience.unshift(req.body);
+            await profile.save();
+            res.json(profile);
+        }
+        catch(error) {
+            console.error(error.message);
+            res.status(500).send(error.message);
+        }
+});
+
+// DELETE /api/profiles/experience/:exp_id - Delete experience from profile
+router.delete('/experience/:exp_id', auth, async (req, res) => {
+    try {
+        const foundProfile = await Profile.findOne({user: req.user.id});
+        foundProfile.experience = foundProfile.experience.filter(
+            (exp) => exp._id.toString() !== req.params.exp_id
+        );
+        await foundProfile.save();
+        return res.status(200).json(foundProfile);
     }
     catch(error) {
         console.error(error.message);
