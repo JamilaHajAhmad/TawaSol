@@ -33,7 +33,7 @@ router.post('/',
 // GET /api/posts - Get all posts
 router.get('/', auth, async (req, res) => {
     try {
-        const posts = await Post.find().sort({ date: -1 });
+        const posts = await Post.find().sort({ date: -1 }); // Sort by most recent first (DESC by date)
         res.json(posts);
     } catch (error) {
         console.error(error.message);
@@ -50,6 +50,42 @@ router.get('/:id', auth, async (req, res) => {
         }
         res.json(post);
     } catch(error) {
+        console.error(error.message);
+        res.status(500).send(error.message);
+    }
+});
+
+// PUT /api/posts/like/:id - Like a post
+router.put('/like/:id', auth, async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        // Check if the post has already been liked by this user
+        if (post.likes.filter(like => like.user.toString() === req.user.id)) {
+            return res.status(400).json({ msg: 'Post already liked' });
+        }
+        // OR: use the built-in function some() to check if the user has already liked the post
+        post.likes.unshift({ user: req.user.id });
+        await post.save();
+        res.json(post.likes);
+    } catch(error) {
+        console.error(error.message);
+        res.status(500).send(error.message);
+    }
+});
+
+// PUT /api/posts/unlike/:id - Unlike a post
+router.put('/unlike/:id', auth, async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        // Check if the post has already been liked by this user
+        if(!post.likes.some((like) => like.user.toString() === req.user.id)) {
+            return res.status(400).json({ msg: 'Post has not yet been liked' });
+        }
+        post.likes = post.likes.filter(like => like.user.toString() !== req.user.id);
+        await post.save();
+        res.json(post.likes);
+    }
+    catch(error) {
         console.error(error.message);
         res.status(500).send(error.message);
     }
