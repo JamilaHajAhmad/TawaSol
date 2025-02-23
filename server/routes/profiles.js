@@ -72,6 +72,38 @@ router.get('/me', auth, async (req, res) => {
     The second argument is an array of fields to include from the referenced document.
     The fields to include are specified by their names.
     The _id field is always included by default.
+    We've used it to add a name field from the user collection to the profile object.
 */
+
+// GET /api/profiles - Get all profiles
+router.get('/', async (req, res) => {
+    try {
+        const profiles = await Profile.find().populate('user', ['name']);
+        res.json(profiles);
+    }
+    catch(error) {
+        console.error(error.message);
+        res.status(500).send(error.message);
+    }
+});
+
+// GET /api/profiles/user/:user_id - Get profile by user ID
+router.get('/user/:user_id', async (req, res) => {
+    try {
+        const profile = await Profile.findOne(
+            {
+                user: req.params.user_id
+            }
+        ).populate('user', ['name']);
+        if (!profile) {
+            return res.status(400).json({msg: 'Profile not found'});
+        }
+        res.json(profile);
+    }
+    catch(error) {
+        console.error(error.message);
+        res.status(500).send(error.message);
+    }
+});
 
 module.exports = router;
