@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const multer = require('multer');
 
 const auth = (req, res, next) => {
     const token = req.header('x-auth-token');
@@ -20,7 +21,21 @@ const auth = (req, res, next) => {
     }
 }
 
-module.exports = {auth};
+const storage = multer.diskStorage(
+    {
+        destination: function (req, file, cb) {
+            cb(null, 'uploads/images');
+        },
+        filename: function (req, file, cb) {
+            cb(null, `${req.user.id + '-' + file.originalname}`)
+        }
+    }
+)
+
+const upload = multer({ storage: storage }).single(""); // OR: multer({storage}) since the key and value are the same
+// single() is used to specify that only one file will be uploaded.
+// If you want to upload multiple files, you can use array() or fields().
+module.exports = {auth, upload};
 
 
 /*
