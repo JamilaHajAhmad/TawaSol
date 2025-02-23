@@ -5,6 +5,7 @@ const normalize = require('normalize-url');
 const router = express.Router();
 const Profile = require('../models/Profile');
 const User = require('../models/User');
+const Post = require('../models/Post');
 
 // POST /api/profiles - Create a new profile or update an existing one
 router.post('/',
@@ -109,11 +110,11 @@ router.get('/user/:user_id', async (req, res) => {
     }
 });
 
-// DELETE /api/profiles - Delete profile, user & posts
+// DELETE /api/profiles - Delete posts, profile & user respectively
 router.delete('/', auth, async (req, res) => {
     try {
-        // TODO: - remove user's posts
         await Promise.all([
+            Post.deleteMany({user: req.user.id}),
             Profile.findOneAndRemove({user: req.user.id}),
             User.findOneAndRemove({_id: req.user.id})
         ]);
