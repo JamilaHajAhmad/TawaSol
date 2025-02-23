@@ -1,9 +1,10 @@
 const express = require('express');
-const {auth} = require('../utils');
+const {auth, upload} = require('../utils');
 const {check, validationResult} = require('express-validator');
 const normalize = require('normalize-url');
 const router = express.Router();
 const Profile = require('../models/Profile');
+const User = require('../models/User');
 
 // POST /api/profiles - Create a new profile or update an existing one
 router.post('/',
@@ -67,12 +68,13 @@ router.get('/me', auth, async (req, res) => {
 });
 
 /*
-    populate() is used to reference documents in other collections.
-    The first argument is the field that contains the reference.
-    The second argument is an array of fields to include from the referenced document.
-    The fields to include are specified by their names.
-    The _id field is always included by default.
-    We've used it to add a name field from the user collection to the profile object.
+    1. populate() is used to reference documents in other collections.
+        The first argument is the field that contains the reference.
+        The second argument is an array of fields to include from the referenced document.
+        The fields to include are specified by their names.
+        The _id field is always included by default.
+        We've used it to add a name field from the user collection to the profile object.
+    2. Every communication with the database requires try-catch blocks to handle errors.
 */
 
 // GET /api/profiles - Get all profiles
@@ -99,6 +101,40 @@ router.get('/user/:user_id', async (req, res) => {
             return res.status(400).json({msg: 'Profile not found'});
         }
         res.json(profile);
+    }
+    catch(error) {
+        console.error(error.message);
+        res.status(500).send(error.message);
+    }
+});
+
+// DELETE /api/profiles - Delete profile, user & posts
+router.delete('/', auth, async (req, res) => {
+    try {
+        // TODO: - remove user's posts
+        await Promise.all([
+            Profile.findOneAndRemove({user: req.user.id}),
+            User.findOneAndRemove({_id: req.user.id})
+        ]);
+        res.json({msg: 'User information successfully deleted'});
+    } catch (error) {   
+        console.error(error.message);
+        res.status(500).send(error.message);
+    }
+});
+
+// POST /api/profiles/upload - Upload profile picture
+router.post('/upload', auth, async (req, res) => {
+    try {
+        upload(req, res, async (error) => {
+            if (error) {
+                return res.status(400).json({msg: err.message});
+            }
+            const profile = await Profile.findOne({user: req.user.id});
+            profile.image = req.file.path;
+            await profile.save();
+            res.json(profile);
+        });
     }
     catch(error) {
         console.error(error.message);
