@@ -184,4 +184,46 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
     }
 });
 
+// PUT /api/profiles/education - Add profile education
+router.put('/education',
+    auth,
+    check('school', 'School is required').notEmpty(),
+    check('degree', 'Degree is required').notEmpty(),
+    check('fieldofstudy', 'Field of study is required').notEmpty(),
+    check('from', 'From date is required and needs to be from the past')
+    .notEmpty()
+    .custom((value, {req}) => (req.body.to ? value < req.body.to : true)),
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({errors: errors.array()});
+        }
+        try {
+            const profile = await Profile.findOne({user: req.user.id});
+            profile.education.unshift(req.body);
+            await profile.save();
+            res.json(profile);
+        }
+        catch(error) {
+            console.error(error.message);
+            res.status(500).send(error.message);
+        }
+});
+
+// DELETE /api/profiles/education/:edu_id - Delete education from profile
+router.delete('/education/:edu_id', auth, async (req, res) => {
+    try {
+        const foundProfile = await Profile.findOne({user: req.user.id});
+        foundProfile.education = foundProfile.education.filter(
+            (edu) => edu._id.toString() !== req.params.edu_id
+        );
+        await foundProfile.save();
+        return res.status(200).json(foundProfile);
+    }
+    catch(error) {
+        console.error(error.message);
+        res.status(500).send(error.message);
+    }
+});
+
 module.exports = router;
