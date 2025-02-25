@@ -2,9 +2,11 @@ const express = require('express');
 const User = require('../models/User');
 const Post = require('../models/Post');
 const { check, validationResult } = require('express-validator');
-const auth = require('../utils');
+const { auth } = require('../utils');
 const router = express.Router();
-
+/*  Remember to put the function you want to import in {} or you'll get this error:
+    TypeError: Route.method() (can be get, post, etc.) requires a callback function but got a [object Object]
+*/
 
 // POST /api/posts - Create a new post
 router.post('/',
