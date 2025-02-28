@@ -6,6 +6,10 @@ const REGISTER_FAILURE = "users/REGISTER_FAILURE";
 const USER_LOADED = "users/USER_LOADED";
 const USER_LOADING_FAILURE = "users/USER_LOADED_FAILURE";
 
+const LOGIN_SUCCESS = "users/LOGIN_SUCCESS";
+const LOGIN_FAILURE = "users/LOGIN_FAILURE";
+const LOGOUT = "users/LOGOUT";
+
 export const loadUser = () => async dispatch => {
     try {
         const res = await api.get("/users");
@@ -37,6 +41,32 @@ export function register(formData) {
     }
 }
 
+export function login(email, password) {
+    return async function loginThunk(dispatch) {
+        try {
+            // Call the login API endpoint
+            const res = await api.post("/api/users/login", { email, password});
+            dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+            dispatch(loadUser());
+            dispatch(showAlertMessage("Log in successful", "success"));
+        }
+        catch(error) {
+            const errors = error.response.data.errors;
+            if(errors.length > 0) {
+                errors.forEach(error => { 
+                    dispatch(showAlertMessage(error.msg, "error"));
+                })
+            }
+            dispatch({ type: LOGIN_FAILURE });
+        }
+    }
+}
+
+export const logout = () => dispatch => {
+    dispatch({ type: LOGOUT });
+    dispatch(showAlertMessage("Logged out", "success"));
+}
+
 const initialState = {
     token: localStorage.getItem("token"),
     isAuthenticated: null,
@@ -55,6 +85,7 @@ export default function reducer(state=initialState, action) {
                 user: payload
             }
         case REGISTER_SUCCESS:
+        case LOGIN_SUCCESS:
             setAuthToken(payload.token);
             return {
                 ...state,
@@ -63,6 +94,7 @@ export default function reducer(state=initialState, action) {
                 loading: false,
             }
         case REGISTER_FAILURE:
+        case LOGIN_FAILURE:
             setAuthToken();
             return {
                 ...state,
@@ -71,6 +103,7 @@ export default function reducer(state=initialState, action) {
                 loading: false,
             }
         case USER_LOADING_FAILURE:
+        case LOGOUT:
             setAuthToken();
             return {
                 ...state,
