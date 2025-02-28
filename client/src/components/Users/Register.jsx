@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import { register } from "../../redux/modules/users";
 import { showAlertMessage } from "../../redux/modules/alerts";
 import "../../css/Register.css";
@@ -52,12 +51,6 @@ function Register({ register, showAlertMessage }) {
             </form>
         </div>
     )
-}
-
-Register.propTypes = {
-    register: PropTypes.func.isRequired,
-    showAlertMessage: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = (state) => ({
