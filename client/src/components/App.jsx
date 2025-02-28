@@ -8,7 +8,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Alert from './Alert';
 import Login from './Users/Login';
-
+import Home from './Home';
+import Private from './Private';
 
 const App = () => {
     return (
@@ -21,6 +22,7 @@ const App = () => {
                     <Route path="/" element={<Landing />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/home" element={<Private component={Home} />} />
                 </Routes>
             </BrowserRouter>
         </Provider>
