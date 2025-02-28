@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.profile-form h1 {
+    text-align: center;
+    margin: 30px 0 0 0;
+}
+
+.profile-form small {
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+    font-size: 15px;
+    color: red;
+    font-family: "Playfair Display", serif;
+}
+
+.profile-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    height: max-content;
+    margin: 0 auto;
+    padding: 20px 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-form form input,
+.profile-form form select {
+    width: 250px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.profile-form form input[type="submit"],
+.profile-form form button,
+.profile-form form .link {
+    width: fit-content;
+    padding: 10px 20px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    font-size: 16px;
+    font-family: "Playfair Display", serif;
+}
+
+.profile-form form input[type="submit"]:hover,
+.profile-form form button:hover {
+    background-color: #007bff;
+}
+
+.profile-form form .link {
+    text-decoration: none;
+    background-color: #eee;
+    border: 1px solid #0056b3;
+    color: #0056b3;
+    font-size: 16px;
+    margin-left: 15px;
+}
+
+.profile-form form i {
+    font-size: 20px;
+    color: #0056b3;
+    margin: 0 10px;
+}
+
+
+
