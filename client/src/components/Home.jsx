@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { getCurrentProfile } from '../redux/modules/profiles';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../css/Home.css';
 
 
 function Home({getCurrentProfile, profiles: { profile }}) {
@@ -15,7 +16,7 @@ function Home({getCurrentProfile, profiles: { profile }}) {
             {profile === null ? (
                 <div>
                     <h2>Now please create your profile</h2>
-                    <Link to="/create-profile">Create Profile</Link>
+                    <Link to="/create-profile" className='link'>Create Profile</Link>
                 </div>
             ) : (
                 <div></div>
