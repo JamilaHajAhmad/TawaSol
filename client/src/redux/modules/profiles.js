@@ -47,7 +47,11 @@ export const createProfile = (formData, history, edit = false) => async dispatch
 
 export const uploadImage = (formData) => async dispatch => {
     try {
-        const res = await api.post('/api/profiles/upload', formData);
+        const res = await api.post('/api/profiles/upload', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
         dispatch({
             type: UPLOAD_IMAGE,
             payload: res.data
