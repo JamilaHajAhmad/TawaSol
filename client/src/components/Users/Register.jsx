@@ -6,7 +6,7 @@ import { register } from "../../redux/modules/users";
 import { showAlertMessage } from "../../redux/modules/alerts";
 import "../../css/Register.css";
 
-function Register({ register, showAlertMessage, isAuthenticated }) {
+function Register({ register, showAlertMessage }) {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
