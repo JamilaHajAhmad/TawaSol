@@ -10,6 +10,7 @@ import Alert from './Alert';
 import Login from './Users/Login';
 import Home from './Home';
 import Private from './Private';
+import ProfileForm from './ProfileForms/ProfileForm';
 
 const App = () => {
     return (
@@ -23,6 +24,7 @@ const App = () => {
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/home" element={<Private component={Home} />} />
+                    <Route path="/create-profile" element={<Private component={ProfileForm} />} />
                 </Routes>
             </BrowserRouter>
         </Provider>
