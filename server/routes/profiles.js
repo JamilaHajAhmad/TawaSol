@@ -132,10 +132,13 @@ router.post('/upload', auth, async (req, res) => {
             if (error) {
                 return res.status(400).json({msg: err.message});
             }
-            const profile = await Profile.findOne({user: req.user.id});
-            profile.image = req.file.path;
-            await profile.save();
-            res.json(profile);
+            else {
+                try {
+                    res.status(200).send(req.user.id);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
         });
     }
     catch(error) {
