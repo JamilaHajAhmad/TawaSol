@@ -7,6 +7,7 @@ import STORE from '../redux/store';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Alert from './Alert';
+import Login from './Users/Login';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<Landing />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/login" element={<Login />} />
                 </Routes>
             </BrowserRouter>
         </Provider>
