@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { login } from "../../redux/modules/users";
 import "../../css/Login.css";
@@ -20,6 +20,10 @@ function Login({ login, isAuthenticated }) {
     const onSubmit = async (e) => {
         e.preventDefault()
         login(email, password);
+    }
+
+    if(isAuthenticated) {
+        return <Navigate to="/home" />
     }
 
     return (
