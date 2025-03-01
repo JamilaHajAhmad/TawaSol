@@ -10,7 +10,7 @@ import Education from './ProfileInfo/Education';
 import Experience from './ProfileInfo/Experience';
 
 
-function Home({ getCurrentProfile, profiles: { profile }, users: { user } }) {
+function Home({ getCurrentProfile, profiles: { profile }, users: { user }, deleteEducation, deleteExperience }) {
 
     const [ image, setImage ] = useState("");
     const [ error, setError ] = useState(false);
@@ -95,4 +95,4 @@ const mapStateToProps = (state) => ({
     3. { profile } will be the object that will be returned from the profiles reducer (in switch case).
 */
 
-export default connect(mapStateToProps, { getCurrentProfile })(Home);
+export default connect(mapStateToProps, { getCurrentProfile, deleteEducation, deleteExperience })(Home);
