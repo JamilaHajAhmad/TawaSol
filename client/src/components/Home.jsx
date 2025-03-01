@@ -1,15 +1,30 @@
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../redux/modules/profiles';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/Home.css';
+import { getProfileImage } from '../utils';
+import defaultImage from '../assets/default.jpg';
 
 
-function Home({getCurrentProfile, profiles: { profile }}) {
+function Home({getCurrentProfile, profiles: { profile }, users: { user }}) {
+
+    const [image, setImage] = useState("");
+    const [error, setError] = useState(false);
     
     useEffect(() => {
         getCurrentProfile();
-    }, [getCurrentProfile]);
+        if(user) {
+            setImage(getProfileImage(user._id))
+        }
+    }, [getCurrentProfile, user]);
+
+    function onError() {
+        if(!error) {
+            setError(true);
+            setImage(defaultImage);
+        }
+    }
 
     return (
         <div className="home">
@@ -19,14 +34,20 @@ function Home({getCurrentProfile, profiles: { profile }}) {
                     <Link to="/create-profile" className='link'>Create Profile</Link>
                 </div>
             ) : (
-                <div></div>
+                <div className="home__profile">
+                    <div className="column">
+                        <img src={image} alt="profile" onError={onError} />
+                        <p>{profile.user.name}</p>
+                    </div>
+                </div>
             )}
         </div>
     )
 }
 
 const mapStateToProps = (state) => ({
-    profiles: state.profiles
+    profiles: state.profiles,
+    users: state.users
 });
 
 /*
