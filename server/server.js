@@ -6,6 +6,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json()); // To use json as body parser
+app.use(express.static(__dirname + '/uploads')); // To serve static files from the uploads folder
 
 // Connect to MongoDB
 connectdb();
