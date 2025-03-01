@@ -19,3 +19,5 @@ export const setAuthToken = (token) => {
         localStorage.removeItem("token");
     }
 }
+
+export const getProfileImage = (userId) => (`${serverURL}/uploads/images/${userId}`);
