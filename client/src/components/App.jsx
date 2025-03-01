@@ -11,6 +11,8 @@ import Login from './Users/Login';
 import Home from './Home';
 import Private from './Private';
 import ProfileForm from './ProfileForms/ProfileForm';
+import AddExperience from './ProfileForms/AddExperience';
+import AddEducation from './ProfileForms/AddEducation';
 
 const App = () => {
     return (
@@ -25,6 +27,8 @@ const App = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/home" element={<Private component={Home} />} />
                     <Route path="/create-profile" element={<Private component={ProfileForm} />} />
+                    <Route path="/add-experience" element={<Private component={AddExperience} />} />
+                    <Route path="/add-education" element={<Private component={AddEducation} />} />
                 </Routes>
             </BrowserRouter>
         </Provider>
