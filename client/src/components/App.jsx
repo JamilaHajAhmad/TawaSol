@@ -18,6 +18,7 @@ import { loadUser } from '../redux/modules/users';
 import { setAuthToken } from '../utils';
 import Developers from './Developers';
 import Profile from './Profile';
+import Settings from './Settings';
 
 const App = () => {
     useEffect(() => {
@@ -43,6 +44,8 @@ const App = () => {
                     <Route path="/add-education" element={<Private component={AddEducation} />} />
                     <Route path="/developers" element={<Private component={Developers} />} />
                     <Route path="/profile/:id" element={<Private component={Profile} />} />
+                    <Route path="/settings" element={<Private component={Settings} />} />
+                    <Route path="/edit-profile" element={<Private component={ProfileForm} />} />
                 </Routes>
             </BrowserRouter>
         </Provider>
