@@ -2,9 +2,11 @@ import { showAlertMessage } from './alerts';
 import { api } from '../../utils';
 
 export const GET_PROFILE = 'profiles/GET_PROFILE';
+export const GET_PROFILES = 'profiles/GET_PROFILES';
 export const UPDATE_PROFILE = 'profiles/UPDATE_PROFILE';
 export const PROFILE_ERROR = 'profiles/PROFILE_ERROR';
 export const UPLOAD_IMAGE = 'profiles/UPLOAD_IMAGE';
+export const CLEAR_PROFILE = 'profiles/CLEAR_PROFILE';
 
 export const getCurrentProfile = () => async dispatch => {
     try {
@@ -142,8 +144,40 @@ export const deleteEducation = (id) => async dispatch => {
     }
 }
 
+export const getProfileById = (userId) => async dispatch => {
+    try {
+        const res = await api.get(`/api/profiles/user/${userId}`);
+        dispatch({
+            type: GET_PROFILE,
+            payload: res.data
+        });
+    } catch (error) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: {msg: error.response.statusText, status: error.response.status}
+        });
+    }
+}
+
+export const getProfiles = () => async dispatch => {
+    dispatch({ type: CLEAR_PROFILE });
+    try {
+        const res = await api.get('/api/profiles');
+        dispatch({
+            type: GET_PROFILES,
+            payload: res.data
+        });
+    } catch (error) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: {msg: error.response.statusText, status: error.response.status}
+        });
+    }
+}
+
 const initialState = {
     profile: null,
+    profiles: [],
     loading: true,
     error: {},
     image: null
@@ -157,6 +191,18 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 profile: payload,
+                loading: false
+            }
+        case GET_PROFILES:
+            return {
+                ...state,
+                profiles: payload,
+                loading: false
+            }
+        case CLEAR_PROFILE:
+            return {
+                ...state,
+                profile: null,
                 loading: false
             }
         case PROFILE_ERROR:
