@@ -35,6 +35,7 @@ const ProfileForm =
         const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
         // Without onChange function, the form will not be able to update the state of the input fields.
         // And the form will not be able to recognize that the user is typing in the input fields.
+        // Not just for the input fields (text, email, password, etc.), but also for the select fields.
         const onFileChange = e => {
             const data = new FormData();
             data.append('file', e.target.files[0]);
