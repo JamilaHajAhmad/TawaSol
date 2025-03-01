@@ -27,12 +27,12 @@ const storage = multer.diskStorage(
             cb(null, 'uploads/images');
         },
         filename: function (req, file, cb) {
-            cb(null, `${req.user.id + '-' + file.originalname}`)
+            cb(null, `${req.user.id}`)
         }
     }
 )
 
-const upload = multer({ storage: storage }).single(""); // OR: multer({storage}) since the key and value are the same
+const upload = multer({ storage: storage }).single("file"); // OR: multer({storage}) since the key and value are the same
 // single() is used to specify that only one file will be uploaded.
 // If you want to upload multiple files, you can use array() or fields().
 module.exports = {auth, upload};
