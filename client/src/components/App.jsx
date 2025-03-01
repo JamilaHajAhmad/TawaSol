@@ -13,8 +13,18 @@ import Private from './Private';
 import ProfileForm from './ProfileForms/ProfileForm';
 import AddExperience from './ProfileForms/AddExperience';
 import AddEducation from './ProfileForms/AddEducation';
+import { useEffect } from 'react';
+import { loadUser } from '../redux/modules/users';
+import { setAuthToken } from '../utils';
 
 const App = () => {
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setAuthToken(token);
+        }
+        STORE.dispatch(loadUser());
+    }, []);
     return (
         <Provider store={STORE}>
             <BrowserRouter>
