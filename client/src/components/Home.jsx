@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import '../css/Home.css';
 import { getProfileImage } from '../utils';
 import defaultImage from '../assets/default.jpg';
+import BasicInfo from './ProfileInfo/BasicInfo';
 
 
 function Home({getCurrentProfile, profiles: { profile }, users: { user }}) {
@@ -38,6 +39,21 @@ function Home({getCurrentProfile, profiles: { profile }, users: { user }}) {
                     <div className="column">
                         <img src={image} alt="profile" onError={onError} />
                         <p>{profile.user.name}</p>
+                    </div>
+                    <div className="column">
+                        <BasicInfo profile={profile} />
+                        <div className="social">
+                            { profile.social ? Object.keys(profile.social)
+                                                .filter(media => profile.social[media] !== "")
+                                                .map(media => {
+                                                    return (
+                                                        <a key={media} href={profile.social[media]} target="_blank" rel="noreferrer">
+                                                            <i className={`fab fa-${media} fa-2x`}></i>
+                                                        </a>
+                                                    )
+                                                })
+                                : null }
+                        </div>
                     </div>
                 </div>
             )}
