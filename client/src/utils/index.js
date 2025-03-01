@@ -20,7 +20,7 @@ export const setAuthToken = (token) => {
     }
 }
 
-export const getProfileImage = (userId) => (`${serverURL}/uploads/images/${userId}`);
+export const getProfileImage = (userId) => (`${serverURL}/images/${userId}`);
 
 export const formatDate = (date) => {
     return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long' }).format(new Date(date));
