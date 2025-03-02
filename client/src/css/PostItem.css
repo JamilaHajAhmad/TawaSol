@@ -1,0 +1,137 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.post-card {
+    width: 700px;
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #FBFBFB;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #3674B5;
+}
+
+.post-card .row {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 10px;
+}
+
+.post-card .row .column img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    object-fit: cover;
+    -webkit-object-fit: cover;
+    -moz-object-fit: cover;
+}
+
+.post-card .row .column .profile-name {
+    color: #3674B5;
+    font-weight: bold;
+    text-decoration: none;
+    -webkit-text-decoration: none;
+    -moz-text-decoration: none;
+    font-family: "Oswald", serif;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    text-align: center;
+    position: relative;
+    left: 50%;
+}
+
+.post-card .row .column p {
+    font-family: "Oswald", serif;
+    font-size: 1.2rem;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+}
+
+.post-card .row .column small {
+    font-family: "Arima", serif;
+    font-size: 0.8rem;
+    color: #3674B5;
+}
+
+.post-card .row .column {
+    position: relative;
+}
+
+.post-card .row .column .post-actions {
+    display: flex;
+    margin-top: 10px;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.post-card .row .column .post-actions button,
+.post-card .row .column .post-actions .comment-button {
+    background-color: #eee;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    cursor: pointer;
+    font-size: 17px;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+}
+
+.post-card .row .column .post-actions .comment-button {
+    text-decoration: none;
+    -webkit-text-decoration: none;
+    -moz-text-decoration: none;
+    color: black;
+}
+
+.post-card .row .column .post-actions button:first-of-type:hover {
+    background-color: #3674B5;
+}
+
+.post-card .row .column .post-actions button:last-of-type:hover {
+    background-color: darkred;
+}
+
+.post-card .comment-button span,
+.post-card .row .column .post-actions span {
+    background-color: #333;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    margin-left: 5px;
+}
+
+
+
+
+
