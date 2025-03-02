@@ -30,11 +30,14 @@ function AddEducation({ addEducation, history}) {
                 <input type="text" placeholder="Field of Study" name="fieldofstudy" value={fieldofstudy} onChange={onChange} />
                 <label htmlFor="from">From Date</label>
                 <input type="date" name="from" value={from} onChange={onChange} />
-                <input type="checkbox" name="current" checked={current} value={current} onChange={() => setFormData({ ...formData, current: !current })} />{" "}Current School
+                <input type="checkbox" name="current" checked={current} value={current} onChange={() => setFormData({ ...formData, current: !current })} />{" "}
+                <span>Current School</span>
                 <label htmlFor="to">To Date</label>
                 <input type="date" name="to" value={to} onChange={onChange} disabled={current} />
-                <input type="submit" value="Submit" />
-                <Link to="/home" className='link'>Go Back</Link>
+                <div className="actions">
+                    <input type="submit" value="Submit" />
+                    <Link to="/home" className='link'>Go Back</Link>
+                </div>
             </form>
         </div>
     );
