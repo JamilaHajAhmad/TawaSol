@@ -8,7 +8,7 @@ import defaultImage from '../assets/default.jpg';
 import BasicInfo from './ProfileInfo/BasicInfo';
 import Education from './ProfileInfo/Education';
 import Experience from './ProfileInfo/Experience';
-
+import '../css/Profile.css';
 
 function Profile({ getProfileById, profiles: { profile } }) {
 
@@ -54,7 +54,7 @@ function Profile({ getProfileById, profiles: { profile } }) {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row last-row">
                         <div className="column">
                             <div className="container">
                                 <h3>Education</h3>
