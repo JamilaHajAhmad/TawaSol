@@ -80,6 +80,17 @@
     margin-left: 15px;
 }
 
+.education-form form label {
+    position: relative;
+    left: -90px;
+}
+
+.education-form form span {
+    position: relative;
+    left: -67px;
+    top: -26px;
+}
+
 
 
 

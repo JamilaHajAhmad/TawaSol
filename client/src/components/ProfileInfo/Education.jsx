@@ -1,16 +1,22 @@
 import { formatDate } from "../../utils";
+import '../../css/Education.css';
 
 const Education = ({profile, deleteEducation}) => {
     return (
-        <div className="container">
+        <div className="education-container">
             {profile.education.map(edu => (
                 <div key={edu._id} className="education">
-                    {deleteEducation ? <i className='fas fa-trash-alt fa-2x' onClick={() => deleteEducation(edu._id)}></i> : null}
-                    <p>{edu.current ? 'Studying' : 'Studied'} <b>{edu.degree}</b> of <b>{edu.fieldofstudy}</b> at <b>{edu.school}</b></p>
+                    {deleteEducation !== undefined ?
+                        <a href="#" onClick={() => deleteEducation(edu._id)}><i className='fas fa-trash-alt fa-x trash-icon'/></a> : null}
+                    <p>&#x1F393; {edu.current ? 'Studying' : 'Studied'} <b>{edu.degree}</b> of <b>{edu.fieldofstudy}</b> at <b>{edu.school}</b></p>
                     <small>from {formatDate(edu.from)} to {edu.to ? formatDate(edu.to) : 'Now'}</small>
                 </div>
             ))}
-            {profile.education.length === 0 ? <p>No education added</p> : null}
+            {profile.education.length === 0 ? (
+                <div className="education">
+                    <p>No education added</p>
+                </div>
+            ) : null}
         </div>
     )
 
