@@ -62,14 +62,14 @@ router.put('/like/:id', auth, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
         // Check if the post has already been liked by this user
-        if (post.likes.filter(like => like.user.toString() === req.user.id)) {
+        if (post.likes.some(like => like.user.toString() === req.user.id)) {
             return res.status(400).json({ msg: 'Post already liked' });
         }
-        // OR: use the built-in function some() to check if the user has already liked the post
+        // Add the user's like to the post
         post.likes.unshift({ user: req.user.id });
         await post.save();
         res.json(post.likes);
-    } catch(error) {
+    } catch (error) {
         console.error(error.message);
         res.status(500).send(error.message);
     }
@@ -79,15 +79,15 @@ router.put('/like/:id', auth, async (req, res) => {
 router.put('/unlike/:id', auth, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
-        // Check if the post has already been liked by this user
-        if(!post.likes.some((like) => like.user.toString() === req.user.id)) {
+        // Check if the post has not yet been liked by this user
+        if (!post.likes.some(like => like.user.toString() === req.user.id)) {
             return res.status(400).json({ msg: 'Post has not yet been liked' });
         }
+        // Remove the user's like from the post
         post.likes = post.likes.filter(like => like.user.toString() !== req.user.id);
         await post.save();
         res.json(post.likes);
-    }
-    catch(error) {
+    } catch (error) {
         console.error(error.message);
         res.status(500).send(error.message);
     }
@@ -150,7 +150,7 @@ router.delete('/:id', auth, async (req, res) => {
         if(post.user.toString() !== req.user.id) {
             return res.status(401).json({ msg: 'User not authorized' });
         }
-        await post.remove();
+        await Post.deleteOne({ _id: req.params.id });
         res.json({ msg: 'Post removed' });
     } catch(error) {
         console.error(error.message);
