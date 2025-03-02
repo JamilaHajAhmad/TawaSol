@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.education-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.education {
+    width: max-content;
+    padding: 1rem;
+    position: relative;
+    margin: 1rem 0;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    background-color: #F1F0E9;
+    border: 1px solid #4D55CC;
+    font-size: 17px;
+    font-family: "Oswald", serif;
+}
+
+.trash-icon {
+    opacity: 0;
+    position: absolute;
+    right: -12px;
+    top: -8px;
+    margin: 17px;
+    cursor: pointer;
+    color: red;
+}
+
+.education:hover .trash-icon {
+    opacity: 1;
+}
