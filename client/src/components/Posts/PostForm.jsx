@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import { addPost } from "../../redux/modules/posts";
-
+import '../../css/PostForm.css';
 
 const PostForm = ({ addPost }) => {
     const [text, setText] = useState("");
