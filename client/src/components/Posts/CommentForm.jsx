@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import { addComment } from "../../redux/modules/posts";
+import '../../css/CommentForm.css';
 
 const CommentForm = ({ postId, addComment }) => {
     const [text, setText] = useState("");
@@ -11,7 +12,7 @@ const CommentForm = ({ postId, addComment }) => {
     }
     return (
         <div className="comment-form">
-            <h3>Leave a comment</h3>
+            <p>Leave a comment</p>
             <hr></hr>
             <form onSubmit={onSubmit}>
                 <textarea name="text" placeholder="Leave a comment" value={text} onChange={e => setText(e.target.value)} required/>
