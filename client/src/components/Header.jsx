@@ -7,10 +7,7 @@ import '../css/Header.css';
 function Header({users: { isAuthenticated }, logout}) {
     const links = (
         <div className="links">
-                <Link className='link' to="/">Home</Link>
-                <Link className='link' to="/about">About</Link>
-                <Link className='link' to="/services">Services</Link>
-                <Link className='link' to="/blog">Blog</Link>
+                <Link className='link' to="/login">Log in</Link>
         </div>
     );
     const authLinks = (
