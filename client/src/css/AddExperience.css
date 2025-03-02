@@ -80,5 +80,16 @@
     margin-left: 15px;
 }
 
+.experience-form form label {
+    position: relative;
+    left: -90px;
+}
+
+.experience-form form span {
+    position: relative;
+    left: -67px;
+    top: -26px;
+}
+
 
 
