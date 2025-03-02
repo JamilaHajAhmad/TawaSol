@@ -9,13 +9,30 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    width: 200px;
+    width: 170px;
     height: 100vh;
     background-color: #2975A7;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
+}
+
+.sidebar img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    margin: 20px 0;
+    margin-left: 30px;
+    border: 2px solid white;
+    -webkit-border: 2px solid white;
+    -moz-border: 2px solid white;
+    position: relative;
+    top: -200px;
 }
 
 .sidebar .sidebar-link {
