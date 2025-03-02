@@ -44,10 +44,10 @@ const Developer = ({ profile }) => {
     }
     return (
         <div className="card">
-            <img src={image} onError={onError} alt="profile" />
+            <img className='card-image' src={image} onError={onError} alt="profile" />
             <div className="card-content">
                 <h3>{profile.user.name}</h3>
-                <p>{profile.status}</p>
+                <p className="card-title">{profile.status}</p>
             </div>
         </div>
     )
