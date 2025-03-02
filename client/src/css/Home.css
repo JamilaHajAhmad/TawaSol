@@ -41,3 +41,32 @@
     display: inline-block;
     margin-top: 10px;
 }
+
+.column .content-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.column .content-container i {
+    position: relative;
+    right: -70px;
+    top: 15px;
+}
+
+.home__profile {
+    position: relative;
+    left: 10%;
+}
+
+.home__profile .row:first-of-type {
+    margin-top: 80px;
+}
+
+.row:last-of-type:not(.last-row) {
+    grid-gap: 280px;
+}
+
+.row:last-of-type:not(.last-row) .last-column {
+    position: relative;
+    right: 100px;
+}

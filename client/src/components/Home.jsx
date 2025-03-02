@@ -61,14 +61,14 @@ function Home({ getCurrentProfile, profiles: { profile }, users: { user }, delet
                     </div>
                     <div className="row">
                         <div className="column">
-                            <div className="container">
+                            <div className="content-container">
                                 <h3>Education</h3>
                                 <Link to="/add-education"><i className='fas fa-plus-circle fa-2x'></i></Link>
                             </div>
                             <Education profile={profile} deleteEducation={deleteEducation} />
                         </div>
-                        <div className="column">
-                            <div className="container">
+                        <div className="column last-column">
+                            <div className="content-container">
                                 <h3>Experience</h3>
                                 <Link to="/add-experience"><i className='fas fa-plus-circle fa-2x'></i></Link>
                             </div>
