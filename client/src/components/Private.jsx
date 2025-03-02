@@ -1,12 +1,23 @@
 import Sidebar from "./Sidebar";
+import Spinner from './Spinner';
+import { connect } from 'react-redux';
+import { Navigate } from "react-router-dom";
 
-const Private = ({component: Component}) => {
+const Private = ({component: Component, users: { isAuthenticated, loading }}) => {
     return (
-        <div>
-            <Sidebar />
-            <Component />
-        </div>
-    );
+        <>
+            {loading ? <Spinner /> : isAuthenticated ? (
+                <>
+                    <Sidebar />
+                    <Component />
+                </>
+            ) : <Navigate to="/login" />}
+        </>
+    )
 }
 
-export default Private;
+const mapStateToProps = state => ({
+    users: state.users
+});
+
+export default connect(mapStateToProps)(Private);
