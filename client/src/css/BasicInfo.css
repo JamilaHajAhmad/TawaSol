@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.basic-info {
+    width: 350px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    background-color: #F1F0E9;
+    border: 1px solid #4D55CC;
+    margin: 10px -120px 20px 0;
+}
+
+.basic-info .container {
+    width: 100%;
+    padding: 10px 20px;
+    margin: 10px 0;
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 17px;
+    font-family: "Oswald", serif;
+}
+
+.basic-info .container:not(:last-child) {
+    border-bottom: 1px solid #4D55CC;
+}

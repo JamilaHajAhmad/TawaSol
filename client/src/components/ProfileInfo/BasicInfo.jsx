@@ -1,20 +1,22 @@
+import '../../css/BasicInfo.css';
+
 function BasicInfo({ profile }) {
     return (
         <div className="basic-info">
             <div className="container">
-                <p>{profile.bio}</p>
+                <p>&#10024; {profile.bio}</p>
             </div>
             <div className="container">
-                <p>{profile.location}</p>
+                <p>&#127968; {profile.location}</p>
             </div>
             <div className="container">
-                <p>{profile.country}</p>
+                <p>&#127758;{profile.country}</p>
             </div>
             <div className="container">
                 { profile.skills ? (
                     profile.skills.map((skill, index) => (
                         <p key={index}>
-                            <span className="skill">{skill}</span>
+                            &#9989; <span className="skill">{skill}</span>
                         </p>
                     ))
                 ) : null }
