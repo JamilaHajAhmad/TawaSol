@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.container .post-card {
+    width: 580px;
+    height: 230px;
+    position: relative;
+    left: 30%;
+}
+
+.post-card .row .column img {
+    position: relative;
+    top: -40px;
+}
+
+.post-card .row .column .profile-name {
+    position: relative;
+    top: -30px;
+}
+
+.post-card .row .column small {
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
