@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { formatDate, getProfileImage } from "../../utils";
 import { deleteComment } from "../../redux/modules/posts";
 import { Link } from "react-router-dom";
-
+import '../../css/CommentItem.css';
 
 const CommentItem = ({ postId, comment: { _id, text, name, user, date }, users, deleteComment }) => {
     return (
@@ -15,15 +15,11 @@ const CommentItem = ({ postId, comment: { _id, text, name, user, date }, users, 
                 <div className="column">
                     <p>{text}</p>
                     <small>Commented at {formatDate(date)}</small>
-                    <div className="comment-actions">
-                        {user === users.user._id && (
-                            <div className="delete-button">
-                                <button type="button" onClick={() => deleteComment(postId, _id)}>
-                                    <i className="fas fa-times"></i>
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                    {user === users.user._id && (
+                        <button type="button" onClick={() => deleteComment(postId, _id)}>
+                            <i className="fas fa-trash"></i>
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
