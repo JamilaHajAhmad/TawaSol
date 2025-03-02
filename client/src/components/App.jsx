@@ -20,6 +20,7 @@ import Developers from './Developers';
 import Profile from './Profile';
 import Settings from './Settings';
 import Posts from './Posts/Posts';
+import Post from './Posts/Post';
 
 const App = () => {
     useEffect(() => {
@@ -48,6 +49,7 @@ const App = () => {
                     <Route path="/settings" element={<Private component={Settings} />} />
                     <Route path="/edit-profile" element={<Private component={ProfileForm} />} />
                     <Route path="/posts" element={<Private component={Posts} />} />
+                    <Route path="/posts/:id" element={<Private component={Post} />} />
                 </Routes>
             </BrowserRouter>
         </Provider>
