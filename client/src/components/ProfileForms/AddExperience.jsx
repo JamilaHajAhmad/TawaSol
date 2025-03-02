@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { addExperience } from '../../redux/modules/profiles';
 import { Link } from 'react-router-dom';
 import '../../css/AddExperience.css';
+import { useNavigate } from 'react-router-dom';
 
-function AddExperience({ addExperience, history}) {
+function AddExperience({ addExperience }) {
     const [formData, setFormData] = useState({
         title: "",
         company: "",
@@ -15,10 +16,11 @@ function AddExperience({ addExperience, history}) {
     });
 
     const { title, company, location, from, to, current } = formData;
+    const navigate = useNavigate();
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
     const onSubmit = e => {
         e.preventDefault();
-        addExperience(formData, history);
+        addExperience(formData, navigate);
     }
     return (
         <div className="experience-form">
