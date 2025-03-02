@@ -24,7 +24,7 @@ export const getCurrentProfile = () => async dispatch => {
 }
 
 // Create or update profile
-export const createProfile = (formData, history, edit = false) => async dispatch => {
+export const createProfile = (formData, navigate, edit = false) => async dispatch => {
     try {
         const res = await api.post('/api/profiles', formData);
         dispatch({
@@ -33,7 +33,7 @@ export const createProfile = (formData, history, edit = false) => async dispatch
         });
         dispatch(showAlertMessage(edit ? 'Profile Updated Successfully' : 'Profile Created Successfully', 'success'));
         if (!edit) {
-            history.push('/home');
+            navigate('/home');
         }
     } catch (error) {
         const errors = error.response.data.errors;
@@ -68,7 +68,7 @@ export const uploadImage = (formData) => async dispatch => {
     }
 }
 
-export const addExperience = (formData, history) => async dispatch => {
+export const addExperience = (formData, navigate) => async dispatch => {
     try {
         const res = await api.put("/api/profiles/experience", formData);
         dispatch({
@@ -76,7 +76,7 @@ export const addExperience = (formData, history) => async dispatch => {
             payload: res.data
         });
         dispatch(showAlertMessage('Experience Added Successfully', 'success'));
-        history.push('/home');
+        navigate('/home');
     } catch (error) {
         const errors = error.response.data.errors;
         if (errors) {
@@ -89,7 +89,7 @@ export const addExperience = (formData, history) => async dispatch => {
     }
 }
 
-export const addEducation = (formData, history) => async dispatch => {
+export const addEducation = (formData, navigate) => async dispatch => {
     try {
         const res = await api.put("/api/profiles/education", formData);
         dispatch({
@@ -97,7 +97,7 @@ export const addEducation = (formData, history) => async dispatch => {
             payload: res.data
         });
         dispatch(showAlertMessage('Education Added Successfully', 'success'));
-        history.push('/home');
+        navigate('/home');
     } catch (error) {
         const errors = error.response.data.errors;
         if (errors) {
