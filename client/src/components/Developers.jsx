@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getProfiles } from '../redux/modules/profiles';
 import { getProfileImage } from '../utils';
 import defaultImage from '../assets/default.jpg';
+import '../css/Developers.css';
 
 const Developers = ({ user, getProfiles, profiles: { profiles, loading } }) => {
     useEffect(() => {
@@ -11,18 +12,22 @@ const Developers = ({ user, getProfiles, profiles: { profiles, loading } }) => {
     }, [ getProfiles ]);
 
     return (
-        <div className="container">
-            <div className="row">
-                {profiles.filter(profile => profile.user._id !== user._id).map(profile => {
-                    return (
-                        <div className='column' key={profile.user._id}>
-                            <Link to={`/profile/${profile.user._id}`}>
-                                <Developer profile={profile} />
-                            </Link>
-                        </div>
-                    )
-                })}
-            </div>
+        <div>
+            {loading ? null : (
+                <div className="container">
+                    <div className="row">
+                        {profiles.filter(profile => profile.user._id !== user._id).map(profile => {
+                            return (
+                                <div className='column' key={profile.user._id}>
+                                    <Link className="card-link" to={`/profile/${profile.user._id}`}>
+                                        <Developer profile={profile} />
+                                    </Link>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
@@ -40,9 +45,9 @@ const Developer = ({ profile }) => {
     return (
         <div className="card">
             <img src={image} onError={onError} alt="profile" />
-            <div className="card-container">
-                <h1>{profile.user.name}</h1>
-                <p className="title">{profile.status}</p>
+            <div className="card-content">
+                <h3>{profile.user.name}</h3>
+                <p>{profile.status}</p>
             </div>
         </div>
     )
