@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getPosts } from '../../redux/modules/posts';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
+import '../../css/Posts.css';
 
 const Posts = ({ getPosts, posts }) => {
 
