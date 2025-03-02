@@ -19,6 +19,7 @@ import { setAuthToken } from '../utils';
 import Developers from './Developers';
 import Profile from './Profile';
 import Settings from './Settings';
+import Posts from './Posts/Posts';
 
 const App = () => {
     useEffect(() => {
@@ -46,6 +47,7 @@ const App = () => {
                     <Route path="/profile/:id" element={<Private component={Profile} />} />
                     <Route path="/settings" element={<Private component={Settings} />} />
                     <Route path="/edit-profile" element={<Private component={ProfileForm} />} />
+                    <Route path="/posts" element={<Private component={Posts} />} />
                 </Routes>
             </BrowserRouter>
         </Provider>
