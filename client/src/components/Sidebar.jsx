@@ -26,11 +26,9 @@ const Sidebar = ({ getCurrentProfile, users: { user } }) => {
 
     return (
         <div className="sidebar">
-            <div className="image">
-                <Link to="/home">
-                    <img src={image} alt="profile" onError={onError} />
-                </Link>
-            </div>
+            <Link to="/home">
+                <img src={image} alt="profile" onError={onError} />
+            </Link>
             <Link className='sidebar-link' to="/home">Home</Link>
             <Link className='sidebar-link' to="/posts">Posts</Link>
             <Link className='sidebar-link' to="/developers">Developers</Link>
